@@ -56,3 +56,29 @@ pub mod filereading {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::filereading::BootFile;
+    use std::fs::File;
+    use std::io::prelude::*;
+    #[test]
+    #[should_panic]
+    fn delete_unexistent_file() {
+        let filename = String::from("test.toml");
+        let _delete_result = BootFile::Delete(&filename).call().unwrap();
+    }
+
+    #[test]
+    #[should_panic]
+    fn delete_file() {
+        let filename = String::from("foo.txt");
+        let mut file = File::create(filename.clone()).unwrap();
+        file.write_all(b"HOla mundo").unwrap();
+    
+        BootFile::Delete(&filename).call().unwrap();
+        // try to read the file
+        let _delete_result = BootFile::Delete(&filename).call().unwrap();
+
+    }
+}
