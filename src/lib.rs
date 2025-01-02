@@ -10,10 +10,8 @@ pub mod filereading {
     }
     #[derive(Debug)]
     pub enum BootFile<'a> {
-        Read(&'a String),
         Run(&'a String),
         Delete(&'a String),
-        Save(&'a String, Vec<String>, Vec<(String, String)>)
     }
 
     impl BootFile<'_> {
@@ -50,8 +48,6 @@ pub mod filereading {
                         Err(error) => Err(FileErr::IoError(error))
                     }
                 },
-                BootFile::Read(_) => Ok(self),
-                BootFile::Save(_,_,_) => Ok(self),
             }
         }
     }
