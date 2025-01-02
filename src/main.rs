@@ -1,5 +1,7 @@
 use apps_boot::filereading::BootFile;
+use filegui::filegui::create_gui_app;
 use std::env;
+pub mod filegui;
 
 fn main() {
     let cli_args: Vec<String> = env::args().collect();
@@ -15,6 +17,9 @@ fn main() {
     else if operation == "delete" {
         let binding = BootFile::Delete(filename);
         binding.call().unwrap();
+    }
+    else if operation == "open" {
+        create_gui_app();
     }
     else {
         panic!("Please select a valid operation: run / delete")
